@@ -24,7 +24,7 @@ public class LoginPage {
     private final By buttonSignUp = By.xpath(".//a[@class='Auth_link__1fOlj' and text()='Зарегистрироваться']");
 
     // Кнопка "Войти"
-    private final By buttonSignIn = By.xpath(".//button[text()='Войти']");
+    private final By buttonSignIn = By.cssSelector(".button_button__33qZ0");
 
     // Кнопка "Восстановить пароль"
     private final By buttonResetPassword = By.xpath(".//a[@class='Auth_link__1fOlj' and text()='Восстановить пароль']");
@@ -38,11 +38,13 @@ public class LoginPage {
 
     @Step("Ввести email пользователя")
     public void sendKeysEmailOfUser(String email) {
+        assertTrue(driver.findElement(inputEmailField).isEnabled());
         driver.findElement(inputEmailField).sendKeys(email);
     }
 
     @Step("Ввести пароль пользователя")
     public void sendKeysPasswordOfUser(String password) {
+        assertTrue(driver.findElement(inputPasswordField).isEnabled());
         driver.findElement(inputPasswordField).sendKeys(password);
     }
 
@@ -56,6 +58,8 @@ public class LoginPage {
 
     @Step("Нажать на кнопку 'Войти'")
     public void clickButtonSignIn() {
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOfElementLocated(buttonSignIn));
         assertTrue(driver.findElement(buttonSignIn).isEnabled());
         driver.findElement(buttonSignIn).click();
     }

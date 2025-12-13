@@ -38,21 +38,26 @@ public class RegistrationPage {
 
     @Step("Ввести имя нового пользователя")
     public void sendKeysNameOfNewUser(String name) {
+        assertTrue(driver.findElement(inputNameNewAccount).isEnabled());
         driver.findElement(inputNameNewAccount).sendKeys(name);
     }
 
     @Step("Ввести email нового пользователя")
     public void sendKeysEmailOfNewUser(String email) {
+        assertTrue(driver.findElement(inputEmailNewAccount).isEnabled());
         driver.findElement(inputEmailNewAccount).sendKeys(email);
     }
 
     @Step("Ввести пароль нового пользователя")
     public void sendKeysPasswordOfNewUser(String password) {
+        assertTrue(driver.findElement(inputPasswordNewAccount).isEnabled());
         driver.findElement(inputPasswordNewAccount).sendKeys(password);
     }
 
     @Step("Нажать на кнопку 'Зарегистрироваться'")
     public void clickButtonSignUp() {
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOfElementLocated(buttonSignUp));
         assertTrue(driver.findElement(buttonSignUp).isEnabled());
         driver.findElement(buttonSignUp).click();
     }
@@ -82,6 +87,8 @@ public class RegistrationPage {
 
     @Step("Нажать на кнопку 'Войти' на форме регистрации")
     public void clickButtonSignInRegistrationForm() {
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOfElementLocated(buttonSignInRegistrationForm));
         assertTrue(driver.findElement(buttonSignInRegistrationForm).isEnabled());
         driver.findElement(buttonSignInRegistrationForm).click();
     }

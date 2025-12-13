@@ -58,7 +58,7 @@ public class TransferAccountTest extends DriverFactory {
         loginPage.checkAccessAutorizationPage();
 
         loginPage.authorizationOnUser(EMAIL, PASSWORD);
-        loginPage.clickButtonSignIn();
+        homePage.checkMessageAboutBurger();
         homePage.clickButtonPersonalAccount();
 
         profilePage.checkMessageForAuthUser();
