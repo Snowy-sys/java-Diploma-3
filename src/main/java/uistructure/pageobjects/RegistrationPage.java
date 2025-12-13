@@ -1,5 +1,6 @@
 package uistructure.pageobjects;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -35,23 +36,28 @@ public class RegistrationPage {
         this.driver = driver;
     }
 
+    @Step("Ввести имя нового пользователя")
     public void sendKeysNameOfNewUser(String name) {
         driver.findElement(inputNameNewAccount).sendKeys(name);
     }
 
+    @Step("Ввести email нового пользователя")
     public void sendKeysEmailOfNewUser(String email) {
         driver.findElement(inputEmailNewAccount).sendKeys(email);
     }
 
+    @Step("Ввести пароль нового пользователя")
     public void sendKeysPasswordOfNewUser(String password) {
         driver.findElement(inputPasswordNewAccount).sendKeys(password);
     }
 
+    @Step("Нажать на кнопку 'Зарегистрироваться'")
     public void clickButtonSignUp() {
         assertTrue(driver.findElement(buttonSignUp).isEnabled());
         driver.findElement(buttonSignUp).click();
     }
 
+    @Step("Общий шаг: регистрация нового пользователя: имя, email, пароль")
     public void registationOfNewUser(String name, String email, String password){
         sendKeysNameOfNewUser(name);
         sendKeysEmailOfNewUser(email);
@@ -60,6 +66,7 @@ public class RegistrationPage {
         clickButtonSignUp();
     }
 
+    @Step("Найти сообщение о некорректно введённом пароле")
     public String getMessageIncorrectPassword() {
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.visibilityOfElementLocated(messageIncorrectPassword));
@@ -67,11 +74,13 @@ public class RegistrationPage {
         return driver.findElement(messageIncorrectPassword).getText();
     }
 
+    @Step("Проверить корректность сообщения о некорректном пароле")
     public void checkMessageIncorrectPassword() {
         String actualResult = getMessageIncorrectPassword();
         assertTrue(actualResult.contains("Некорректный пароль"), "Не найден текст 'Некорректный пароль'");
     }
 
+    @Step("Нажать на кнопку 'Войти' на форме регистрации")
     public void clickButtonSignInRegistrationForm() {
         assertTrue(driver.findElement(buttonSignInRegistrationForm).isEnabled());
         driver.findElement(buttonSignInRegistrationForm).click();

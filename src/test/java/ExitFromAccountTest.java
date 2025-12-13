@@ -51,7 +51,6 @@ public class ExitFromAccountTest extends DriverFactory {
         loginPage.checkAccessAutorizationPage();
 
         loginPage.authorizationOnUser(EMAIL, PASSWORD);
-        loginPage.clickButtonSignIn();
         homePage.clickButtonPersonalAccount();
 
         profilePage.clickButtonExitPersonalAccount();

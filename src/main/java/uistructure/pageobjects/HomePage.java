@@ -1,5 +1,6 @@
 package uistructure.pageobjects;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -43,11 +44,13 @@ public class HomePage {
         this.driver = driver;
     }
 
+    @Step("Нажать на кнопку 'Войти в аккаунт'")
     public void clickButtonSignIn() {
         assertTrue(driver.findElement(buttonSignInAccount).isEnabled());
         driver.findElement(buttonSignInAccount).click();
     }
 
+    @Step("Найти кнопку 'Оформить заказ'")
     public String getNameOfOrderButton() {
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.visibilityOfElementLocated(buttonOrderCreate));
@@ -55,21 +58,25 @@ public class HomePage {
         return driver.findElement(buttonOrderCreate).getText();
     }
 
+    @Step("Проверить корректность текста на кнопке 'Оформить заказ'")
     public void checkNameOfOrderButton(){
         String actualResult = getNameOfOrderButton();
         assertTrue(actualResult.contains("Оформить заказ"), "Не найден текст 'Оформить заказ'");
     }
 
+    @Step("Нажать на кнопку 'Личный кабинет'")
     public void clickButtonPersonalAccount() {
         assertTrue(driver.findElement(buttonPersonalAccount).isEnabled());
         driver.findElement(buttonPersonalAccount).click();
     }
 
+    @Step("Нажать на кнопку 'Конструктор'")
     public void clickButtonConstructor() {
         assertTrue(driver.findElement(buttonConstructor).isEnabled());
         driver.findElement(buttonConstructor).click();
     }
 
+    @Step("Найти кнопку 'Собрать бургер'")
     public String getTextAboutBurger() {
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.visibilityOfElementLocated(textAboutBurger));
@@ -77,16 +84,19 @@ public class HomePage {
         return driver.findElement(textAboutBurger).getText();
     }
 
+    @Step("Проверить корректность текста на кнопке 'Собрать бургер'")
     public void checkMessageAboutBurger() {
         String actualResult = getTextAboutBurger();
         assertTrue(actualResult.contains("Соберите бургер"), "Не найден текст 'Соберите бургер'");
     }
 
+    @Step("Нажать на кнопку логотипа Stellar Burgers")
     public void clickButtonLogo() {
         assertTrue(driver.findElement(buttonMainLogo).isEnabled());
         driver.findElement(buttonMainLogo).click();
     }
 
+    @Step("Нажать на кнопку 'Булки' в конструкторе")
     public void clickButtonBuns() {
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.visibilityOfElementLocated(buttonBuns));
@@ -98,6 +108,7 @@ public class HomePage {
                 .until(ExpectedConditions.attributeContains(buttonBuns, "class", "current"));
     }
 
+    @Step("Нажать на кнопку 'Соусы' в конструкторе")
     public void clickButtonSauces() {
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.visibilityOfElementLocated(buttonSauces));
@@ -109,6 +120,7 @@ public class HomePage {
                 .until(ExpectedConditions.attributeContains(buttonSauces, "class", "current"));
     }
 
+    @Step("Нажать на кнопку 'Начинки' в конструкторе")
     public void clickButtonToppings() {
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.visibilityOfElementLocated(buttonToppings));
@@ -120,6 +132,7 @@ public class HomePage {
                 .until(ExpectedConditions.attributeContains(buttonToppings, "class", "current"));
     }
 
+    @Step("Общий шаг: нажать на кнопки в конструкторе: 'Начинки', 'Соусы', 'Булки'")
     public void clickAllSectionOfConstructor(){
         clickButtonToppings();
         clickButtonSauces();

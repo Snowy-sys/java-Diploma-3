@@ -66,7 +66,6 @@ public class TransferConstructorTest extends DriverFactory {
         loginPage.checkAccessAutorizationPage();
 
         loginPage.authorizationOnUser(EMAIL, PASSWORD);
-        loginPage.clickButtonSignIn();
         homePage.clickButtonPersonalAccount();
 
         homePage.clickButtonConstructor();
@@ -80,7 +79,6 @@ public class TransferConstructorTest extends DriverFactory {
         loginPage.checkAccessAutorizationPage();
 
         loginPage.authorizationOnUser(EMAIL, PASSWORD);
-        loginPage.clickButtonSignIn();
         homePage.clickButtonPersonalAccount();
 
         homePage.clickButtonLogo();

@@ -1,5 +1,6 @@
 package uistructure.pageobjects;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -23,6 +24,7 @@ public class ProfilePage {
         this.driver = driver;
     }
 
+    @Step("Найти сообщение в личном кабинете о наличии возможности изменения перс.данных")
     public String getTextForAuthUser() {
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.visibilityOfElementLocated(textForAuthUser));
@@ -30,11 +32,13 @@ public class ProfilePage {
         return driver.findElement(textForAuthUser).getText();
     }
 
+    @Step("Проверить корректность текста на кнопке 'Собрать бургер'")
     public void checkMessageForAuthUser() {
         String actualResult = getTextForAuthUser();
         assertTrue(actualResult.contains("В этом разделе вы можете изменить свои персональные данные"), "Не найден текст о возможности изменения данных");
     }
 
+    @Step("Нажать на кнопку 'Выход'")
     public void clickButtonExitPersonalAccount() {
         assertTrue(driver.findElement(buttonExitPersonalAccount).isEnabled());
         driver.findElement(buttonExitPersonalAccount).click();

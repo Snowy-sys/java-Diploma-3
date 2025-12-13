@@ -51,7 +51,6 @@ public class AuthorizationTest extends DriverFactory {
         loginPage.checkAccessAutorizationPage();
 
         loginPage.authorizationOnUser(EMAIL, PASSWORD);
-        loginPage.clickButtonSignIn();
 
         homePage.checkNameOfOrderButton();
     }
@@ -63,7 +62,6 @@ public class AuthorizationTest extends DriverFactory {
         loginPage.checkAccessAutorizationPage();
 
         loginPage.authorizationOnUser(EMAIL, PASSWORD);
-        loginPage.clickButtonSignIn();
 
         homePage.checkNameOfOrderButton();
     }
@@ -79,7 +77,6 @@ public class AuthorizationTest extends DriverFactory {
         loginPage.checkAccessAutorizationPage();
 
         loginPage.authorizationOnUser(EMAIL, PASSWORD);
-        loginPage.clickButtonSignIn();
 
         homePage.checkNameOfOrderButton();
     }
@@ -95,7 +92,6 @@ public class AuthorizationTest extends DriverFactory {
         loginPage.checkAccessAutorizationPage();
 
         loginPage.authorizationOnUser(EMAIL, PASSWORD);
-        loginPage.clickButtonSignIn();
 
         homePage.checkNameOfOrderButton();
     }

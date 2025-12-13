@@ -54,7 +54,6 @@ public class ConstructorTest extends DriverFactory {
         loginPage.checkAccessAutorizationPage();
 
         loginPage.authorizationOnUser(EMAIL, PASSWORD);
-        loginPage.clickButtonSignIn();
 
         homePage.clickAllSectionOfConstructor();
     }
