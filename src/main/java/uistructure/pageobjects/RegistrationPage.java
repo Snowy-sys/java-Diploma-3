@@ -16,9 +16,6 @@ public class RegistrationPage {
     // Кнопка "Войти в аккаунт"
     private final By buttonSignInAccount = By.className("button_button__33qZ0");
 
-    // Кнопка "Зарегистрироваться"
-    private final By buttonSignUpAccount = By.cssSelector(".Auth_link__1fOlj");
-
     // Поле для ввода имени
     private final By inputNameNewAccount = By.xpath(".//fieldset[1]//input[@type='text']");
 
@@ -41,11 +38,6 @@ public class RegistrationPage {
     public void clickButtonSignIn() {
         assertTrue(driver.findElement(buttonSignInAccount).isEnabled());
         driver.findElement(buttonSignInAccount).click();
-    }
-
-    public void clickButtonSignUp() {
-        assertTrue(driver.findElement(buttonSignUpAccount).isEnabled());
-        driver.findElement(buttonSignUpAccount).click();
     }
 
     public void sendKeysNameOfNewUser(String name) {

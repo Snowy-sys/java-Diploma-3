@@ -10,4 +10,5 @@ public class RestBaseClass {
 
     protected final String apiUserLogin = "/auth/login";
     protected final String apiUserInformation = "/auth/user";
+    public String apiUserCreation = "/auth/register";
 }

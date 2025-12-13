@@ -18,6 +18,7 @@ public class RegistrationTest extends DriverFactory {
     private UserDeleteMainSteps userDeleteMainSteps;
 
     @BeforeEach
+    @DisplayName("Инициализация драйвера, запуск браузера и конструкторов")
     public void initRegistration() {
         registrationPage = new RegistrationPage(driver);
         initUrlBrowser(REGISTER_URL);
