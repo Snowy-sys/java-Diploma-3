@@ -16,6 +16,9 @@ public class TranferAccount {
     // Подтверждение перехода в личный кабинет авторизованного пользователя
     private final By textForAuthUser = By.xpath(".//nav[@class='Account_nav__Lgali']/p");
 
+    // Кнопка "Выход"
+    private final By buttonExitPersonalAccount = By.xpath(".//button[@type='button' and text()='Выход']");
+
     public TranferAccount(WebDriver driver) {
         this.driver = driver;
     }
@@ -25,5 +28,10 @@ public class TranferAccount {
                 .until(ExpectedConditions.visibilityOfElementLocated(textForAuthUser));
         assertTrue(driver.findElement(textForAuthUser).isEnabled());
         return driver.findElement(textForAuthUser).getText();
+    }
+
+    public void clickButtonExitPersonalAccount() {
+        assertTrue(driver.findElement(buttonExitPersonalAccount).isEnabled());
+        driver.findElement(buttonExitPersonalAccount).click();
     }
 }

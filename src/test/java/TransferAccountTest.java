@@ -13,7 +13,7 @@ import static constants.TestData.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static uistructure.constants.Url.BASE_URL;
 
-public class TransferPersonalAccountTest extends DriverFactory {
+public class TransferAccountTest extends DriverFactory {
 
     private RegistrationPage registrationPage;
     private LoginPage loginPage;
