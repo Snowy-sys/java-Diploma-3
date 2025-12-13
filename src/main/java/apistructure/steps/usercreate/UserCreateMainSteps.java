@@ -45,5 +45,4 @@ public class UserCreateMainSteps extends RestBaseClass {
 
         return response;
     }
-
 }

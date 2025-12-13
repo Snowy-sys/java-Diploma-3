@@ -12,7 +12,6 @@ public class UserDeleteMainSteps extends RestBaseClass {
 
     protected String email;
     protected String password;
-    protected String name;
 
     @Getter
     @Setter

@@ -14,5 +14,4 @@ public class UserCreationPojo {
     private String name;
     private String email;
     private String password;
-
 }
