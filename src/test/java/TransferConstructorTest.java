@@ -5,31 +5,24 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import uistructure.basedriverfactory.DriverFactory;
-import uistructure.pageobjects.LoginPage;
-import uistructure.pageobjects.RegistrationPage;
-import uistructure.pageobjects.TranferAccount;
-import uistructure.pageobjects.TransferConstructor;
+import uistructure.pageobjects.*;
 
 import static constants.TestData.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static uistructure.constants.Url.BASE_URL;
 
 public class TransferConstructorTest extends DriverFactory {
 
-    private RegistrationPage registrationPage;
+    private HomePage homePage;
     private LoginPage loginPage;
+
     private UserCreateMainSteps userCreateMainSteps;
     private UserDeleteMainSteps userDeleteMainSteps;
-    private TranferAccount tranferAccount;
-    private TransferConstructor transferConstructor;
 
     @BeforeEach
     @DisplayName("Инициализация драйвера, запуск браузера, конструктора и создание нового пользователя")
     public void initBrowserAndNewUserApiCreation() {
-        registrationPage = new RegistrationPage(driver);
+        homePage = new HomePage(driver);
         loginPage = new LoginPage(driver);
-        tranferAccount = new TranferAccount(driver);
-        transferConstructor = new TransferConstructor(driver);
 
         initUrlBrowser(BASE_URL);
 
@@ -38,7 +31,6 @@ public class TransferConstructorTest extends DriverFactory {
 
         userCreateMainSteps.sendPostRequestUserCreation(FIRST_NAME, EMAIL, PASSWORD);
         userDeleteMainSteps.setAccessToken(userCreateMainSteps.getAccessToken());
-
     }
 
     @AfterEach
@@ -50,53 +42,48 @@ public class TransferConstructorTest extends DriverFactory {
     @Test
     @DisplayName("Переход в конструктор ИЗ личного кабинета ДО авторизации пользователя")
     public void checkTransferToConstructorWithoutAuth() {
-        loginPage.clickButtonPersonalAccount();
-        registrationPage.checkAccessAutorizationPage();
-        transferConstructor.clickButtonConstructor();
+        homePage.clickButtonPersonalAccount();
+        loginPage.checkAccessAutorizationPage();
+        homePage.clickButtonConstructor();
 
-        String actualResult = transferConstructor.getTextAboutBurger();
-        assertTrue(actualResult.contains("Соберите бургер"), "Не найден текст 'Соберите бургер'");
+        homePage.checkMessageAboutBurger();
     }
 
     @Test
     @DisplayName("Переход в конструктор через логотип ИЗ личного кабинета ДО авторизации пользователя")
     public void checkTransferToConstructorThroughLogoWithoutAuth() {
-        loginPage.clickButtonPersonalAccount();
-        registrationPage.checkAccessAutorizationPage();
-        transferConstructor.clickButtonLogo();
+        homePage.clickButtonPersonalAccount();
+        loginPage.checkAccessAutorizationPage();
+        homePage.clickButtonLogo();
 
-        String actualResult = transferConstructor.getTextAboutBurger();
-        assertTrue(actualResult.contains("Соберите бургер"), "Не найден текст 'Соберите бургер'");
+        homePage.checkMessageAboutBurger();
     }
 
     @Test
     @DisplayName("Переход в конструктор ИЗ личного кабинета ПОСЛЕ авторизации пользователя")
     public void checkTransferToConstructorWithAuth() {
-        loginPage.clickButtonPersonalAccount();
-        registrationPage.checkAccessAutorizationPage();
+        homePage.clickButtonPersonalAccount();
+        loginPage.checkAccessAutorizationPage();
 
         loginPage.authorizationOnUser(EMAIL, PASSWORD);
-        registrationPage.clickButtonSignIn();
-        loginPage.clickButtonPersonalAccount();
+        loginPage.clickButtonSignIn();
+        homePage.clickButtonPersonalAccount();
 
-        transferConstructor.clickButtonConstructor();
-        String actualResult = transferConstructor.getTextAboutBurger();
-        assertTrue(actualResult.contains("Соберите бургер"), "Не найден текст 'Соберите бургер'");
+        homePage.clickButtonConstructor();
+        homePage.checkMessageAboutBurger();
     }
 
     @Test
     @DisplayName("Переход в конструктор через логотип ИЗ личного кабинета ПОСЛЕ авторизации пользователя")
     public void checkTransferToConstructorThroughLogoWithAuth() {
-        loginPage.clickButtonPersonalAccount();
-        registrationPage.checkAccessAutorizationPage();
+        homePage.clickButtonPersonalAccount();
+        loginPage.checkAccessAutorizationPage();
 
         loginPage.authorizationOnUser(EMAIL, PASSWORD);
-        registrationPage.clickButtonSignIn();
-        loginPage.clickButtonPersonalAccount();
+        loginPage.clickButtonSignIn();
+        homePage.clickButtonPersonalAccount();
 
-        transferConstructor.clickButtonLogo();
-        String actualResult = transferConstructor.getTextAboutBurger();
-        assertTrue(actualResult.contains("Соберите бургер"), "Не найден текст 'Соберите бургер'");
+        homePage.clickButtonLogo();
+        homePage.checkMessageAboutBurger();
     }
-
 }

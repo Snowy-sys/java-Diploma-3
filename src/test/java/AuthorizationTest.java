@@ -1,28 +1,30 @@
 import apistructure.steps.usercreate.UserCreateMainSteps;
 import apistructure.steps.userdelete.UserDeleteMainSteps;
-import apistructure.steps.userlogin.UserLoginMainSteps;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import uistructure.basedriverfactory.DriverFactory;
+import uistructure.pageobjects.HomePage;
 import uistructure.pageobjects.LoginPage;
 import uistructure.pageobjects.RegistrationPage;
 
 import static constants.TestData.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static uistructure.constants.Url.*;
 
 public class AuthorizationTest extends DriverFactory {
 
+    private HomePage homePage;
     private RegistrationPage registrationPage;
     private LoginPage loginPage;
+
     private UserCreateMainSteps userCreateMainSteps;
     private UserDeleteMainSteps userDeleteMainSteps;
 
     @BeforeEach
     @DisplayName("Инициализация драйвера, запуск браузера, конструктора и создание нового пользователя")
     public void initBrowserAndNewUserApiCreation() {
+        homePage = new HomePage(driver);
         registrationPage = new RegistrationPage(driver);
         loginPage = new LoginPage(driver);
 
@@ -45,60 +47,56 @@ public class AuthorizationTest extends DriverFactory {
     @Test
     @DisplayName("Авторизация через кнопку Войти в аккаунт на главной странице")
     public void checkSignInThroughButtonSignIn() {
-        registrationPage.clickButtonSignIn();
-        registrationPage.checkAccessAutorizationPage();
+        homePage.clickButtonSignIn();
+        loginPage.checkAccessAutorizationPage();
 
         loginPage.authorizationOnUser(EMAIL, PASSWORD);
-        registrationPage.clickButtonSignIn();
+        loginPage.clickButtonSignIn();
 
-        String actualResult = loginPage.getNameOfOderButton();
-        assertTrue(actualResult.contains("Оформить заказ"), "Не найден текст 'Оформить заказ'");
+        homePage.checkNameOfOrderButton();
     }
 
     @Test
     @DisplayName("Авторизация через кнопку Личный Кабинет на главной странице")
     public void checkSignInThroughButtonPersonalAccount() {
-        loginPage.clickButtonPersonalAccount();
-        registrationPage.checkAccessAutorizationPage();
+        homePage.clickButtonPersonalAccount();
+        loginPage.checkAccessAutorizationPage();
 
         loginPage.authorizationOnUser(EMAIL, PASSWORD);
-        registrationPage.clickButtonSignIn();
+        loginPage.clickButtonSignIn();
 
-        String actualResult = loginPage.getNameOfOderButton();
-        assertTrue(actualResult.contains("Оформить заказ"), "Не найден текст 'Оформить заказ'");
+        homePage.checkNameOfOrderButton();
     }
 
     @Test
     @DisplayName("Авторизация через кнопку в форме регистрации")
     public void checkSignInThroughButtonInSignUpForm() {
-        registrationPage.clickButtonSignIn();
-        registrationPage.checkAccessAutorizationPage();
+        homePage.clickButtonSignIn();
+        loginPage.checkAccessAutorizationPage();
 
         loginPage.clickButtonSignUp();
-        loginPage.clickButtonSignInRegistrationForm();
-        registrationPage.checkAccessAutorizationPage();
+        registrationPage.clickButtonSignInRegistrationForm();
+        loginPage.checkAccessAutorizationPage();
 
         loginPage.authorizationOnUser(EMAIL, PASSWORD);
-        registrationPage.clickButtonSignIn();
+        loginPage.clickButtonSignIn();
 
-        String actualResult = loginPage.getNameOfOderButton();
-        assertTrue(actualResult.contains("Оформить заказ"), "Не найден текст 'Оформить заказ'");
+        homePage.checkNameOfOrderButton();
     }
 
     @Test
     @DisplayName("Авторизация через кнопку восстановления пароля")
     public void checkSignInThroughButtonResetPassword() {
-        registrationPage.clickButtonSignIn();
-        registrationPage.checkAccessAutorizationPage();
+        homePage.clickButtonSignIn();
+        loginPage.checkAccessAutorizationPage();
 
         loginPage.clickButtonResetPassword();
-        loginPage.clickButtonSignInRegistrationForm();
-        registrationPage.checkAccessAutorizationPage();
+        registrationPage.clickButtonSignInRegistrationForm();
+        loginPage.checkAccessAutorizationPage();
 
         loginPage.authorizationOnUser(EMAIL, PASSWORD);
-        registrationPage.clickButtonSignIn();
+        loginPage.clickButtonSignIn();
 
-        String actualResult = loginPage.getNameOfOderButton();
-        assertTrue(actualResult.contains("Оформить заказ"), "Не найден текст 'Оформить заказ'");
+        homePage.checkNameOfOrderButton();
     }
 }

@@ -5,15 +5,17 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import uistructure.pageobjects.LoginPage;
 import uistructure.pageobjects.RegistrationPage;
 
 import static constants.TestData.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static uistructure.constants.Url.REGISTER_URL;
 
 public class RegistrationTest extends DriverFactory {
 
     private RegistrationPage registrationPage;
+    private LoginPage loginPage;
+
     private UserLoginMainSteps userLoginMainSteps;
     private UserDeleteMainSteps userDeleteMainSteps;
 
@@ -21,6 +23,8 @@ public class RegistrationTest extends DriverFactory {
     @DisplayName("Инициализация драйвера, запуск браузера и конструкторов")
     public void initRegistration() {
         registrationPage = new RegistrationPage(driver);
+        loginPage = new LoginPage(driver);
+
         initUrlBrowser(REGISTER_URL);
 
         userLoginMainSteps = new UserLoginMainSteps();
@@ -30,7 +34,6 @@ public class RegistrationTest extends DriverFactory {
     @AfterEach
     @DisplayName("Авторизация и удаление нового пользователя после создания")
     public void deleteNewUser() {
-
         userLoginMainSteps.sendPostRequestUserLogin(EMAIL,PASSWORD);
 
         userDeleteMainSteps.setAccessToken(userLoginMainSteps.getAccessToken());
@@ -41,8 +44,7 @@ public class RegistrationTest extends DriverFactory {
     @DisplayName("Успешная регистрация нового пользователя")
     public void checkCorrectNewUserRegistration() {
         registrationPage.registationOfNewUser(FIRST_NAME, EMAIL, PASSWORD);
-
-        registrationPage.checkAccessAutorizationPage();
+        loginPage.checkAccessAutorizationPage();
 
     }
 
@@ -50,8 +52,6 @@ public class RegistrationTest extends DriverFactory {
     @DisplayName("Попытка регистрации с некорректным паролем")
     public void checkMessageOfIncorrectPassword() {
         registrationPage.registationOfNewUser(FIRST_NAME, EMAIL, INCORRECT_PASSWORD);
-
-        String actualResult = registrationPage.getMessageIncorrectPassword();
-        assertTrue(actualResult.contains("Некорректный пароль"), "Не найден текст 'Некорректный пароль'");
+        registrationPage.checkMessageIncorrectPassword();
     }
 }

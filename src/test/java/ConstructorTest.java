@@ -5,30 +5,25 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import uistructure.basedriverfactory.DriverFactory;
-import uistructure.pageobjects.LoginPage;
-import uistructure.pageobjects.RegistrationPage;
-import uistructure.pageobjects.TranferAccount;
-import uistructure.pageobjects.TransferConstructor;
+import uistructure.pageobjects.*;
 
 import static constants.TestData.*;
 import static uistructure.constants.Url.BASE_URL;
 
 public class ConstructorTest extends DriverFactory {
 
-    private RegistrationPage registrationPage;
+    private HomePage homePage;
     private LoginPage loginPage;
+
     private UserCreateMainSteps userCreateMainSteps;
     private UserDeleteMainSteps userDeleteMainSteps;
-    private TranferAccount tranferAccount;
-    private TransferConstructor transferConstructor;
+
 
     @BeforeEach
     @DisplayName("Инициализация драйвера, запуск браузера, конструктора и создание нового пользователя")
     public void initBrowserAndNewUserApiCreation() {
-        registrationPage = new RegistrationPage(driver);
+        homePage = new HomePage(driver);
         loginPage = new LoginPage(driver);
-        tranferAccount = new TranferAccount(driver);
-        transferConstructor = new TransferConstructor(driver);
 
         initUrlBrowser(BASE_URL);
 
@@ -49,18 +44,18 @@ public class ConstructorTest extends DriverFactory {
     @Test
     @DisplayName("Переход между разделами конструктора: булки, соусы, начинки ДО авторизации")
     public void checkTransferConstructorSectionsWithoutAuth() {
-        transferConstructor.clickAllSectionOfConstructor();
+        homePage.clickAllSectionOfConstructor();
     }
 
     @Test
     @DisplayName("Переход между разделами конструктора: булки, соусы, начинки ПОСЛЕ авторизации")
     public void checkTransferConstructorSectionsWithAuth() {
-        loginPage.clickButtonPersonalAccount();
-        registrationPage.checkAccessAutorizationPage();
+        homePage.clickButtonPersonalAccount();
+        loginPage.checkAccessAutorizationPage();
 
         loginPage.authorizationOnUser(EMAIL, PASSWORD);
-        registrationPage.clickButtonSignIn();
+        loginPage.clickButtonSignIn();
 
-        transferConstructor.clickAllSectionOfConstructor();
+        homePage.clickAllSectionOfConstructor();
     }
 }

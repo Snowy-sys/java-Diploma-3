@@ -9,7 +9,7 @@ import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TranferAccount {
+public class ProfilePage {
 
     private WebDriver driver;
 
@@ -19,7 +19,7 @@ public class TranferAccount {
     // Кнопка "Выход"
     private final By buttonExitPersonalAccount = By.xpath(".//button[@type='button' and text()='Выход']");
 
-    public TranferAccount(WebDriver driver) {
+    public ProfilePage(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -28,6 +28,11 @@ public class TranferAccount {
                 .until(ExpectedConditions.visibilityOfElementLocated(textForAuthUser));
         assertTrue(driver.findElement(textForAuthUser).isEnabled());
         return driver.findElement(textForAuthUser).getText();
+    }
+
+    public void checkMessageForAuthUser() {
+        String actualResult = getTextForAuthUser();
+        assertTrue(actualResult.contains("В этом разделе вы можете изменить свои персональные данные"), "Не найден текст о возможности изменения данных");
     }
 
     public void clickButtonExitPersonalAccount() {

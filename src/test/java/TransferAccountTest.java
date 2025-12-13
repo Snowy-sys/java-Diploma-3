@@ -5,28 +5,28 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import uistructure.basedriverfactory.DriverFactory;
+import uistructure.pageobjects.HomePage;
 import uistructure.pageobjects.LoginPage;
-import uistructure.pageobjects.RegistrationPage;
-import uistructure.pageobjects.TranferAccount;
+import uistructure.pageobjects.ProfilePage;
 
 import static constants.TestData.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static uistructure.constants.Url.BASE_URL;
 
 public class TransferAccountTest extends DriverFactory {
 
-    private RegistrationPage registrationPage;
+    private HomePage homePage;
     private LoginPage loginPage;
+    private ProfilePage profilePage;
+
     private UserCreateMainSteps userCreateMainSteps;
     private UserDeleteMainSteps userDeleteMainSteps;
-    private TranferAccount tranferAccount;
 
     @BeforeEach
     @DisplayName("Инициализация драйвера, запуск браузера, конструктора и создание нового пользователя")
     public void initBrowserAndNewUserApiCreation() {
-        registrationPage = new RegistrationPage(driver);
+        homePage = new HomePage(driver);
         loginPage = new LoginPage(driver);
-        tranferAccount = new TranferAccount(driver);
+        profilePage = new ProfilePage(driver);
 
         initUrlBrowser(BASE_URL);
 
@@ -47,22 +47,21 @@ public class TransferAccountTest extends DriverFactory {
     @Test
     @DisplayName("Переход в личный кабинет ДО авторизации пользователя")
     public void checkTransferToPersonalAccountWithoutAuth() {
-        loginPage.clickButtonPersonalAccount();
-        registrationPage.checkAccessAutorizationPage();
+        homePage.clickButtonPersonalAccount();
+        loginPage.checkAccessAutorizationPage();
     }
 
     @Test
     @DisplayName("Переход в личный кабинет ПОСЛЕ авторизации пользователя")
     public void checkTransferToPersonalAccountWithAuth() {
-        loginPage.clickButtonPersonalAccount();
-        registrationPage.checkAccessAutorizationPage();
+        homePage.clickButtonPersonalAccount();
+        loginPage.checkAccessAutorizationPage();
 
         loginPage.authorizationOnUser(EMAIL, PASSWORD);
-        registrationPage.clickButtonSignIn();
-        loginPage.clickButtonPersonalAccount();
+        loginPage.clickButtonSignIn();
+        homePage.clickButtonPersonalAccount();
 
-        String actualResult = tranferAccount.getTextForAuthUser();
-        assertTrue(actualResult.contains("В этом разделе вы можете изменить свои персональные данные"), "Не найден текст о возможности изменения данных");
+        profilePage.checkMessageForAuthUser();
 
     }
 
