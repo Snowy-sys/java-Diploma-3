@@ -23,6 +23,16 @@ public class TransferConstructor {
     // Кнопка логотипа
     private final By buttonMainLogo = By.cssSelector(".AppHeader_header__logo__2D0X2");
 
+    // Кнопка "Булки" в конструкторе
+    private final By buttonBuns = By.cssSelector(".tab_tab__1SPyG:nth-child(1)");
+
+    // Кнопка "Соусы" в конструкторе
+    private final By buttonSauces = By.cssSelector(".tab_tab__1SPyG:nth-child(2)");
+
+    // Кнопка "Начинки" в конструкторе
+    private final By buttonToppings = By.cssSelector(".tab_tab__1SPyG:nth-child(3)");
+
+
     public TransferConstructor(WebDriver driver) {
         this.driver = driver;
     }
@@ -43,5 +53,46 @@ public class TransferConstructor {
         assertTrue(driver.findElement(buttonMainLogo).isEnabled());
         driver.findElement(buttonMainLogo).click();
     }
+
+    public void clickButtonBuns() {
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOfElementLocated(buttonBuns));
+
+        assertTrue(driver.findElement(buttonBuns).isEnabled());
+        driver.findElement(buttonBuns).click();
+
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.attributeContains(buttonBuns, "class", "current"));
+    }
+
+    public void clickButtonSauces() {
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOfElementLocated(buttonSauces));
+
+        assertTrue(driver.findElement(buttonSauces).isEnabled());
+        driver.findElement(buttonSauces).click();
+
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.attributeContains(buttonSauces, "class", "current"));
+    }
+
+    public void clickButtonToppings() {
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOfElementLocated(buttonToppings));
+
+        assertTrue(driver.findElement(buttonToppings).isEnabled());
+        driver.findElement(buttonToppings).click();
+
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.attributeContains(buttonToppings, "class", "current"));
+    }
+
+    public void clickAllSectionOfConstructor(){
+        clickButtonToppings();
+        clickButtonSauces();
+        clickButtonBuns();
+    }
+
+
 
 }
