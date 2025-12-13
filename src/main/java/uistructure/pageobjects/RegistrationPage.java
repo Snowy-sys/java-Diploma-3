@@ -31,6 +31,9 @@ public class RegistrationPage {
     // Доступность страницы авторизации
     private final By authorizationAcceptPage = By.xpath(".//div[@class='Auth_login__3hAey']/h2[text()='Вход']");
 
+    // Сообщение о некорректном пароле
+    private final By messageIncorrectPassword = By.xpath(".//p[text()='Некорректный пароль']");
+
     public RegistrationPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -63,13 +66,20 @@ public class RegistrationPage {
         sendKeysPasswordOfNewUser(password);
 
         clickButtonSignIn();
+    }
 
+    public void checkAccessAutorizationPage() {
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.visibilityOfElementLocated(authorizationAcceptPage));
-
+        assertTrue(driver.findElement(authorizationAcceptPage).isEnabled());
     }
 
 
-
+    public String getMessageIncorrectPassword() {
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOfElementLocated(messageIncorrectPassword));
+        assertTrue(driver.findElement(messageIncorrectPassword).isEnabled());
+        return driver.findElement(messageIncorrectPassword).getText();
+    }
 
 }
