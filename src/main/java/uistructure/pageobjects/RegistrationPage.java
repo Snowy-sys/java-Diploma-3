@@ -1,0 +1,95 @@
+package uistructure.pageobjects;
+
+import io.qameta.allure.Step;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class RegistrationPage {
+
+    private WebDriver driver;
+
+    // Поле для ввода имени
+    private final By inputNameNewAccount = By.xpath(".//fieldset[1]//input[@type='text']");
+
+    // Поле для ввода email
+    private final By inputEmailNewAccount = By.xpath(".//fieldset[2]//input[@type='text']");
+
+    // Поле для ввода пароля
+    private final By inputPasswordNewAccount = By.xpath(".//input[@type='password']");
+
+    // Кнопка "Зарегистрироваться"
+    private final By buttonSignUp = By.xpath(".//button[text()='Зарегистрироваться']");
+
+    // Сообщение о некорректном пароле
+    private final By messageIncorrectPassword = By.xpath(".//p[text()='Некорректный пароль']");
+
+    // Кнопка "Войти" на форме регистрации
+    private final By buttonSignInRegistrationForm = By.cssSelector(".Auth_link__1fOlj");
+
+    public RegistrationPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    @Step("Ввести имя нового пользователя")
+    public void sendKeysNameOfNewUser(String name) {
+        assertTrue(driver.findElement(inputNameNewAccount).isEnabled());
+        driver.findElement(inputNameNewAccount).sendKeys(name);
+    }
+
+    @Step("Ввести email нового пользователя")
+    public void sendKeysEmailOfNewUser(String email) {
+        assertTrue(driver.findElement(inputEmailNewAccount).isEnabled());
+        driver.findElement(inputEmailNewAccount).sendKeys(email);
+    }
+
+    @Step("Ввести пароль нового пользователя")
+    public void sendKeysPasswordOfNewUser(String password) {
+        assertTrue(driver.findElement(inputPasswordNewAccount).isEnabled());
+        driver.findElement(inputPasswordNewAccount).sendKeys(password);
+    }
+
+    @Step("Нажать на кнопку 'Зарегистрироваться'")
+    public void clickButtonSignUp() {
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOfElementLocated(buttonSignUp));
+        assertTrue(driver.findElement(buttonSignUp).isEnabled());
+        driver.findElement(buttonSignUp).click();
+    }
+
+    @Step("Общий шаг: регистрация нового пользователя: имя, email, пароль")
+    public void registationOfNewUser(String name, String email, String password){
+        sendKeysNameOfNewUser(name);
+        sendKeysEmailOfNewUser(email);
+        sendKeysPasswordOfNewUser(password);
+
+        clickButtonSignUp();
+    }
+
+    @Step("Найти сообщение о некорректно введённом пароле")
+    public String getMessageIncorrectPassword() {
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOfElementLocated(messageIncorrectPassword));
+        assertTrue(driver.findElement(messageIncorrectPassword).isEnabled());
+        return driver.findElement(messageIncorrectPassword).getText();
+    }
+
+    @Step("Проверить корректность сообщения о некорректном пароле")
+    public void checkMessageIncorrectPassword() {
+        String actualResult = getMessageIncorrectPassword();
+        assertTrue(actualResult.contains("Некорректный пароль"), "Не найден текст 'Некорректный пароль'");
+    }
+
+    @Step("Нажать на кнопку 'Войти' на форме регистрации")
+    public void clickButtonSignInRegistrationForm() {
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOfElementLocated(buttonSignInRegistrationForm));
+        assertTrue(driver.findElement(buttonSignInRegistrationForm).isEnabled());
+        driver.findElement(buttonSignInRegistrationForm).click();
+    }
+}
